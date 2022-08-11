@@ -45,7 +45,7 @@ const remixBleach = {
         if (attr.name) attrs.push(attr)
       })
 
-      var tag = {
+      const tag = {
         full: match[0],
         name: match[1],
         attr: attrs
@@ -64,7 +64,7 @@ const remixBleach = {
     const mode = options.mode || 'white'
     const list = options.list || remixBleach.whitelist
 
-    var matches = remixBleach.analyze(html)
+    const matches = remixBleach.analyze(html)
 
     if ((mode === 'white' && list.indexOf('script') === -1) ||
        (mode === 'black' && list.indexOf('script') !== -1)) {

@@ -25,7 +25,7 @@ class NodeProvider {
   }
 
   resetEnvironment () {
-     /* Do nothing. */
+    /* Do nothing. */
   }
 
   getBalanceInEther (address, cb) {

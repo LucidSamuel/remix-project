@@ -11,7 +11,7 @@ import InjectedProvider from './providers/injected.js'
 import NodeProvider from './providers/node.js'
 import { execution, EventManager, helpers } from '@remix-project/remix-lib'
 import { etherScanLink } from './helper'
-import { logBuilder, cancelUpgradeMsg, cancelProxyMsg } from "@remix-ui/helper"
+import { logBuilder, cancelUpgradeMsg, cancelProxyMsg } from '@remix-ui/helper'
 const { txFormat, txExecution, typeConversion, txListener: Txlistener, TxRunner, TxRunnerWeb3, txHelper } = execution
 const { txResultHelper: resultToRemixTx } = helpers
 const packageJson = require('../../../../package.json')
@@ -173,7 +173,7 @@ export class Blockchain extends Plugin {
     const finalCb = (error, txResult, address, returnValue) => {
       if (error) {
         const log = logBuilder(error)
-  
+
         _paq.push(['trackEvent', 'blockchain', 'Deploy With Proxy', 'Proxy deployment failed: ' + error])
         return this.call('terminal', 'logHtml', log)
       }
@@ -186,7 +186,7 @@ export class Blockchain extends Plugin {
     this.runTx(args, confirmationCb, continueCb, promptCb, finalCb)
   }
 
-  async upgradeProxy(proxyAddress, newImplAddress, data, newImplementationContractObject) {
+  async upgradeProxy (proxyAddress, newImplAddress, data, newImplementationContractObject) {
     const upgradeModal = {
       id: 'confirmProxyDeployment',
       title: 'Confirm Update Proxy (ERC1967)',
@@ -253,7 +253,7 @@ export class Blockchain extends Plugin {
       data.contractABI = selectedContract.abi
     }
 
-    this.runTx({ data: data, useCall: false }, confirmationCb, continueCb, promptCb,
+    this.runTx({ data, useCall: false }, confirmationCb, continueCb, promptCb,
       (error, txResult, address) => {
         if (error) {
           return finalCb(`creation of ${selectedContract.name} errored: ${error.message ? error.message : error}`)
@@ -462,7 +462,7 @@ export class Blockchain extends Plugin {
         return this.getProvider() === 'web3' ? this.config.get('settings/personal-mode') : false
       }
     }, _ => this.executionContext.web3(), _ => this.executionContext.currentblockGasLimit())
-    
+
     web3Runner.event.register('transactionBroadcasted', (txhash) => {
       this.executionContext.detectNetwork((error, network) => {
         if (error || !network) return
@@ -471,9 +471,9 @@ export class Blockchain extends Plugin {
 
         if (viewEtherScanLink) {
           this.call('terminal', 'logHtml',
-          (<a href={etherScanLink(network.name, txhash)} target="_blank">
-            view on etherscan
-          </a>))        
+            (<a href={etherScanLink(network.name, txhash)} target='_blank' rel='noreferrer'>
+              view on etherscan
+            </a>))
         }
       })
     })
@@ -504,7 +504,7 @@ export class Blockchain extends Plugin {
     return Object.keys(this.txRunner.pendingTxs).length
   }
 
-  async getCode(address) {
+  async getCode (address) {
     return await this.web3().eth.getCode(address)
   }
 
@@ -610,7 +610,7 @@ export class Blockchain extends Plugin {
           return
         }
 
-        const tx = { to: args.to, data: args.data.dataHex, useCall: args.useCall, from: fromAddress, value: value, gasLimit: gasLimit, timestamp: args.data.timestamp }
+        const tx = { to: args.to, data: args.data.dataHex, useCall: args.useCall, from: fromAddress, value, gasLimit, timestamp: args.data.timestamp }
         const payLoad = { funAbi: args.data.funAbi, funArgs: args.data.funArgs, contractBytecode: args.data.contractBytecode, contractName: args.data.contractName, contractABI: args.data.contractABI, linkReferences: args.data.linkReferences }
 
         if (!tx.timestamp) tx.timestamp = Date.now()
@@ -629,7 +629,7 @@ export class Blockchain extends Plugin {
                 }
                 return reject(error)
               }
-  
+
               const isVM = this.executionContext.isVM()
               if (isVM && tx.useCall) {
                 try {
@@ -702,16 +702,16 @@ export class Blockchain extends Plugin {
           }
         }
       }
-  
+
       if (!isVM && tx && tx.useCall) {
         returnValue = toBuffer(addHexPrefix(txResult.result))
       }
-  
+
       let address = null
       if (txResult && txResult.receipt) {
         address = txResult.receipt.contractAddress
       }
-  
+
       cb(null, txResult, address, returnValue)
     } catch (error) {
       cb(error)

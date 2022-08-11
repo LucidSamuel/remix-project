@@ -14,7 +14,7 @@ module.exports = class RemixDProvider extends FileProvider {
   }
 
   _registerEvent () {
-    var remixdEvents = ['connecting', 'connected', 'errored', 'closed']
+    const remixdEvents = ['connecting', 'connected', 'errored', 'closed']
     remixdEvents.forEach((event) => {
       this._appManager.on('remixd', event, (value) => {
         this.event.emit(event, value)
@@ -100,16 +100,16 @@ module.exports = class RemixDProvider extends FileProvider {
 
   async get (path, cb) {
     if (!this._isReady) return cb && cb('provider not ready')
-    var unprefixedpath = this.removePrefix(path)
-    try{
+    const unprefixedpath = this.removePrefix(path)
+    try {
       const file = await this._appManager.call('remixd', 'get', { path: unprefixedpath })
       this.filesContent[path] = file.content
       if (file.readonly) { this._readOnlyFiles[path] = 1 }
-      if(cb) cb(null, file.content)
+      if (cb) cb(null, file.content)
       return file.content
-    } catch(error) {
+    } catch (error) {
       if (error) console.log(error)
-      if(cb) return cb(null, this.filesContent[path])
+      if (cb) return cb(null, this.filesContent[path])
     }
   }
 
@@ -117,7 +117,7 @@ module.exports = class RemixDProvider extends FileProvider {
     if (!this._isReady) return cb && cb('provider not ready')
     const unprefixedpath = this.removePrefix(path)
 
-    return this._appManager.call('remixd', 'set', { path: unprefixedpath, content: content }).then(async (result) => {
+    return this._appManager.call('remixd', 'set', { path: unprefixedpath, content }).then(async (result) => {
       if (cb) return cb(null, result)
     }).catch((error) => {
       if (cb) return cb(error)

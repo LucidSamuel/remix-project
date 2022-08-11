@@ -36,8 +36,8 @@ export class ThemeModule extends Plugin {
     this.themes = {}
     themes.map((theme) => {
       this.themes[theme.name.toLocaleLowerCase()] = {
-       ...theme,
-        url: window.location.origin + ( window.location.pathname.startsWith('/address/') || window.location.pathname.endsWith('.sol') ? '/' : window.location.pathname ) + theme.url
+        ...theme,
+        url: window.location.origin + (window.location.pathname.startsWith('/address/') || window.location.pathname.endsWith('.sol') ? '/' : window.location.pathname) + theme.url
       }
     })
     this._paq = _paq
@@ -68,7 +68,7 @@ export class ThemeModule extends Plugin {
   initTheme (callback) { // callback is setTimeOut in app.js which is always passed
     if (callback) this.initCallback = callback
     if (this.active) {
-      document.getElementById('theme-link') ? document.getElementById('theme-link').remove():null
+      document.getElementById('theme-link') ? document.getElementById('theme-link').remove() : null
       const nextTheme = this.themes[this.active] // Theme
       document.documentElement.style.setProperty('--theme', nextTheme.quality)
 
@@ -88,7 +88,7 @@ export class ThemeModule extends Plugin {
    * @param {string} [themeName] - The name of the theme
    */
   switchTheme (themeName) {
-    themeName = themeName && themeName.toLocaleLowerCase() 
+    themeName = themeName && themeName.toLocaleLowerCase()
     if (themeName && !Object.keys(this.themes).includes(themeName)) {
       throw new Error(`Theme ${themeName} doesn't exist`)
     }
@@ -97,7 +97,7 @@ export class ThemeModule extends Plugin {
     _paq.push(['trackEvent', 'themeModule', 'switchTo', next])
     const nextTheme = this.themes[next] // Theme
     if (!this.forced) this._deps.config.set('settings/theme', next)
-    document.getElementById('theme-link') ? document.getElementById('theme-link').remove():null
+    document.getElementById('theme-link') ? document.getElementById('theme-link').remove() : null
 
     const theme = document.createElement('link')
     theme.setAttribute('rel', 'stylesheet')

@@ -5,7 +5,7 @@ const version = require('../../package.json').version
 const fs = require('fs')
 
 const versionData = {
-  version: version,
+  version,
   timestamp: Date.now(),
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development'
 }
@@ -27,7 +27,7 @@ module.exports = config => {
     output: {
       ...nxWebpackConfig.output,
       filename: `[name].${versionData.version}.${versionData.timestamp}.js`,
-      chunkFilename: `[name].${versionData.version}.${versionData.timestamp}.js`,
+      chunkFilename: `[name].${versionData.version}.${versionData.timestamp}.js`
     },
     plugins: [
       ...nxWebpackConfig.plugins,
@@ -38,7 +38,7 @@ module.exports = config => {
       })
     ]
   }
-  
+
   webpackConfig.output.chunkLoadTimeout = 600000
 
   if (process.env.NODE_ENV === 'production') {

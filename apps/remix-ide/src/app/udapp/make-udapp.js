@@ -1,7 +1,7 @@
 import Registry from '../state/registry'
 
-var remixLib = require('@remix-project/remix-lib')
-var EventsDecoder = remixLib.execution.EventsDecoder
+const remixLib = require('@remix-project/remix-lib')
+const EventsDecoder = remixLib.execution.EventsDecoder
 
 export function makeUdapp (blockchain, compilersArtefacts, logHtmlCallback) {
   // ----------------- Tx listener -----------------

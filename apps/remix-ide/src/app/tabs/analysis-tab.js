@@ -6,7 +6,7 @@ import * as packageJson from '../../../../../package.json'
 import Registry from '../state/registry'
 import { PluginViewWrapper } from '@remix-ui/helper'
 
-var EventManager = require('../../lib/events')
+const EventManager = require('../../lib/events')
 
 const profile = {
   name: 'solidityStaticAnalysis',
@@ -56,7 +56,7 @@ class AnalysisTab extends ViewPlugin {
       }
     })
   }
-  
+
   setDispatch (dispatch) {
     this.dispatch = dispatch
   }
@@ -65,12 +65,14 @@ class AnalysisTab extends ViewPlugin {
     return <div id='staticAnalyserView'><PluginViewWrapper plugin={this} /></div>
   }
 
-  updateComponent(state) {
-    return  <RemixUiStaticAnalyser
-    registry={state.registry}
-    analysisModule={state.analysisModule}
-    event={state.event}
-  />
+  updateComponent (state) {
+    return (
+      <RemixUiStaticAnalyser
+        registry={state.registry}
+        analysisModule={state.analysisModule}
+        event={state.event}
+      />
+    )
   }
 
   renderComponent () {

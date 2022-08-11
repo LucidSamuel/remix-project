@@ -41,7 +41,7 @@ class PluginManagerComponent extends ViewPlugin {
    * RemixAppManager
    * @param {string} name name of Plugin
    */
-  isActive = (name) =>{
+  isActive = (name) => {
     return this.appManager.actives.includes(name)
   }
 
@@ -86,20 +86,22 @@ class PluginManagerComponent extends ViewPlugin {
     this.renderComponent()
   }
 
-  updateComponent(state){
-    return <RemixUiPluginManager
-      pluginComponent={state}/>
+  updateComponent (state) {
+    return (
+      <RemixUiPluginManager
+        pluginComponent={state}
+      />
+    )
   }
 
   renderComponent () {
-    if(this.dispatch) this.dispatch({...this, activePlugins: this.activePlugins, inactivePlugins: this.inactivePlugins})
+    if (this.dispatch) this.dispatch({ ...this, activePlugins: this.activePlugins, inactivePlugins: this.inactivePlugins })
   }
 
   render () {
     return (
       <div id='pluginManager'><PluginViewWrapper plugin={this} /></div>
-    );
-    
+    )
   }
 
   getAndFilterPlugins = (filter) => {

@@ -66,7 +66,7 @@ export class TabProxy extends Plugin {
           nameArray.shift()
           name = 'localhost' + '/' + nameArray.join('/')
           tabIndex = this.loadedTabs.findIndex(tab => tab.name === name)
-          if(tabIndex !== -1) this.removeTab(name)
+          if (tabIndex !== -1) this.removeTab(name)
         } else this.removeTab(name)
       } else {
         name = name.startsWith(this.fileManager.mode + '/') ? name : this.fileManager.mode + '/' + name
@@ -153,7 +153,7 @@ export class TabProxy extends Plugin {
           displayName,
           () => this.emit('switchApp', name),
           () => {
-            if (name === 'home' && this.loadedTabs.length === 1 && this.loadedTabs[0].id === "home") {
+            if (name === 'home' && this.loadedTabs.length === 1 && this.loadedTabs[0].id === 'home') {
               const files = Object.keys(this.editor.sessions)
               files.forEach(filepath => this.editor.discard(filepath))
             }
@@ -173,9 +173,9 @@ export class TabProxy extends Plugin {
     this.on('fileDecorator', 'fileDecoratorsChanged', async (items) => {
       this.tabsApi.setFileDecorations(items)
     })
-    
+
     try {
-      this.themeQuality = (await this.call('theme', 'currentTheme') ).quality
+      this.themeQuality = (await this.call('theme', 'currentTheme')).quality
     } catch (e) {
       console.log('theme plugin has an issue: ', e)
     }
@@ -226,7 +226,7 @@ export class TabProxy extends Plugin {
   addTab (name, title, switchTo, close, icon) {
     if (this._handlers[name]) return this.renderComponent()
 
-    var slash = name.split('/')
+    const slash = name.split('/')
     const tabPath = slash.reverse()
     const tempTitle = []
 
@@ -288,10 +288,7 @@ export class TabProxy extends Plugin {
     let previous = currentFileTab
     this.loadedTabs = this.loadedTabs.filter((tab, index) => {
       if (!previous && tab.name === name) {
-        if(index - 1  >= 0 && this.loadedTabs[index - 1])
-          previous = this.loadedTabs[index - 1]
-        else if (index + 1 && this.loadedTabs[index + 1]) 
-          previous = this.loadedTabs[index + 1]
+        if (index - 1 >= 0 && this.loadedTabs[index - 1]) { previous = this.loadedTabs[index - 1] } else if (index + 1 && this.loadedTabs[index + 1]) { previous = this.loadedTabs[index + 1] }
       }
       return tab.name !== name
     })
@@ -308,17 +305,19 @@ export class TabProxy extends Plugin {
     this.renderComponent()
   }
 
-  updateComponent(state) {
-    return <TabsUI
-      plugin={state.plugin}
-      tabs={state.loadedTabs}
-      onSelect={state.onSelect}
-      onClose={state.onClose}
-      onZoomIn={state.onZoomIn}
-      onZoomOut={state.onZoomOut}
-      onReady={state.onReady}
-      themeQuality={state.themeQuality}
-    />
+  updateComponent (state) {
+    return (
+      <TabsUI
+        plugin={state.plugin}
+        tabs={state.loadedTabs}
+        onSelect={state.onSelect}
+        onClose={state.onClose}
+        onZoomIn={state.onZoomIn}
+        onZoomOut={state.onZoomOut}
+        onReady={state.onReady}
+        themeQuality={state.themeQuality}
+      />
+    )
   }
 
   renderComponent () {

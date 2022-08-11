@@ -17,7 +17,7 @@ class InjectedProvider {
   }
 
   resetEnvironment () {
-     /* Do nothing. */ 
+    /* Do nothing. */
   }
 
   getBalanceInEther (address, cb) {

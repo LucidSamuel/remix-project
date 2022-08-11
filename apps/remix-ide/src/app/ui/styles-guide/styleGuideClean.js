@@ -8,7 +8,7 @@ function styleGuideClean () {
                               CSS PROPERTIES
 
   -------------------------------------------------------------------------- */
-  var cssProperties = {
+  const cssProperties = {
     /* ------------------------------------------------------
                               COLORS
     ------------------------------------------------------ */
@@ -69,7 +69,7 @@ function styleGuideClean () {
 
   -------------------------------------------------------------------------- */
 
-  var appProperties = {
+  const appProperties = {
 
     /* ------------------------------------------------------
                           ACE THEME
@@ -373,7 +373,7 @@ function styleGuideClean () {
 
   -------------------------------------------------------------------------- */
 
-  var remixProperties = {
+  const remixProperties = {
     /* ------------------------------------------------------
                             REMIX GENERAL
     /* ------------------------------------------------------ */
@@ -844,7 +844,7 @@ function styleGuideClean () {
 
   return {
     colors: cssProperties.colors,
-    appProperties: appProperties,
+    appProperties,
     borders: cssProperties.borders,
     leftPanel: remixProperties.leftPanel,
     editor: remixProperties.editor,
