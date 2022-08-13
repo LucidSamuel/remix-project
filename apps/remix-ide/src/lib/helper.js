@@ -85,10 +85,10 @@ module.exports = {
     return name + counter
   },
   checkSpecialChars (name) {
-    return name.match(/[:*?"<>\\'|]/) != null
+    return name.match(/[:*?"<>\\'|]/) !== null
   },
   checkSlash (name) {
-    return name.match(/\//) != null
+    return name.match(/\//) !== null
   },
   isHexadecimal (value) {
     return /^[0-9a-fA-F]+$/.test(value) && (value.length % 2 === 0)

@@ -24,7 +24,7 @@ const remixBleach = {
     let match
 
     // extract all tags
-    while ((match = remixBleach.matcher.exec(html)) != null) {
+    while ((match = remixBleach.matcher.exec(html)) !== null) {
       const attrr = match[2].split(' ')
       const attrs = []
 

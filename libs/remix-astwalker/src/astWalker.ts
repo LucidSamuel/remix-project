@@ -6,7 +6,7 @@ export declare interface AstWalker {
 }
 
 const isObject = function (obj: any): boolean {
-  return obj != null && obj.constructor.name === 'Object'
+  return obj !== null && obj.constructor.name === 'Object'
 }
 
 export function isAstNode (node: Record<string, unknown>): boolean {

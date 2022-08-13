@@ -17,11 +17,11 @@ export const extractParentFromKey = (key: string):string => {
 }
 
 export const checkSpecialChars = (name: string) => {
-  return name.match(/[:*?"<>\\'|]/) != null
+  return name.match(/[:*?"<>\\'|]/) !== null
 }
 
 export const checkSlash = (name: string) => {
-  return name.match(/\//) != null
+  return name.match(/\//) !== null
 }
 
 export const createNonClashingNameAsync = async (name: string, fileManager, prefix = '') => {

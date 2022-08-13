@@ -33,7 +33,7 @@ const showTable = (opts, showTableHash) => {
   if (opts.logs && opts.logs.decoded) {
     stringified = typeConversion.stringify(opts.logs.decoded)
   }
-  const val = opts.val != null ? typeConversion.toInt(opts.val) : 0
+  const val = opts.val !== null ? typeConversion.toInt(opts.val) : 0
   return (
     <table
       className={`mt-1 mb-2 mr-4  align-self-center ${showTableHash.includes(opts.hash) ? 'active' : ''}`}
