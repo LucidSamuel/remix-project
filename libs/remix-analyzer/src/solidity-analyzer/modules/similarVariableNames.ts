@@ -91,7 +91,7 @@ export default class similarVariableNames implements AnalyzerModule {
 
   private isCommonNrSuffixVersion (varName1: string, varName2: string): boolean {
     const ref: string = '^' + util.escapeRegExp(varName1.slice(0, -1)) + '[0-9]*$'
-    return varName2.match(ref) != null
+    return varName2.match(ref) !== null
   }
 
   private getFunctionVariables (contract: ContractHLAst, func: FunctionHLAst): VariableDeclarationAstNode[] {

@@ -139,7 +139,7 @@ const swarmVerifiedPublish = async (beeNodes: Bee[], postageStampId: string, con
 
 const hashFromResults = (results: UploadResult[]) => {
   for (const result of results) {
-    if (result != null) {
+    if (result !== null) {
       return result.reference
     }
   }
