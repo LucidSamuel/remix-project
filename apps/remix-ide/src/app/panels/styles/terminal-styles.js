@@ -1,6 +1,6 @@
-var csjs = require('csjs-inject')
+const csjs = require('csjs-inject')
 
-var css = csjs`
+const css = csjs`
   .panel              {
     position          : relative;
     display           : flex;

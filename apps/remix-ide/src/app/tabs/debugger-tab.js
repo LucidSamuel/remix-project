@@ -65,5 +65,4 @@ export class DebuggerTab extends DebuggerApiMixin(ViewPlugin) {
       console.log(e)
     }
   }
-
 }

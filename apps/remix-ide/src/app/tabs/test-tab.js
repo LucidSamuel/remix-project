@@ -8,7 +8,7 @@ import helper from '../../lib/helper'
 import { canUseWorker, urlFromVersion } from '@remix-project/remix-solidity'
 import { PluginViewWrapper } from '@remix-ui/helper'
 
-var { UnitTestRunner, assertLibCode } = require('@remix-project/remix-tests')
+const { UnitTestRunner, assertLibCode } = require('@remix-project/remix-tests')
 
 const profile = {
   name: 'solidityUnitTesting',
@@ -140,15 +140,15 @@ module.exports = class TestTab extends ViewPlugin {
     return <div><PluginViewWrapper plugin={this} /></div>
   }
 
-  updateComponent(state) {
+  updateComponent (state) {
     return <SolidityUnitTesting testTab={state.testTab} helper={state.helper} initialPath={state.testDirPath} />
   }
 
   renderComponent (testDirPath) {
     this.dispatch({
       testTab: this,
-      helper: helper,
-      testDirPath: testDirPath
+      helper,
+      testDirPath
     })
   }
 }

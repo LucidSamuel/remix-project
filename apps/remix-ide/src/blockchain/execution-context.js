@@ -168,8 +168,8 @@ export class ExecutionContext {
     }
 
     if (this.customNetWorks[context]) {
-      var network = this.customNetWorks[context]
-      if (!this.customNetWorks[context].isInjected) {        
+      const network = this.customNetWorks[context]
+      if (!this.customNetWorks[context].isInjected) {
         this.setProviderFromEndpoint(network.provider, { context: network.name }, (error) => {
           if (error) infoCb(error)
           cb()
@@ -183,7 +183,7 @@ export class ExecutionContext {
         this.event.trigger('contextChanged', [context])
         return cb()
       }
-    }   
+    }
   }
 
   currentblockGasLimit () {

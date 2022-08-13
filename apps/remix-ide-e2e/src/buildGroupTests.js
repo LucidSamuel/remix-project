@@ -20,7 +20,7 @@ fs.readdirSync(testFolder).forEach(file => {
   }
 })
 
-function createFiles(file, matches, flaky = false) {
+function createFiles (file, matches, flaky = false) {
   if (matches) {
     const unique = matches.filter(onlyUnique)
     unique.map((group) => {
@@ -38,11 +38,11 @@ function createFiles(file, matches, flaky = false) {
   }
 }
 
-function onlyUnique(value, index, self) {
+function onlyUnique (value, index, self) {
   return self.indexOf(value) === index
 }
 
-function createFlakyTestFiles(file, text) {
+function createFlakyTestFiles (file, text) {
   const lines = text.split('\n')
   lines.forEach((line, index) => {
     // if line contains #flaky

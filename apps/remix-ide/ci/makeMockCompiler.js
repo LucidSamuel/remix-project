@@ -1,15 +1,15 @@
 'use strict'
 
-var fs = require('fs')
-var compiler = require('solc')
-var compilerInput = require('@remix-project/remix-solidity').CompilerInput
-var defaultVersion = 'soljson-v0.8.7+commit.e28d00a7.js'
+const fs = require('fs')
+const compiler = require('solc')
+const compilerInput = require('@remix-project/remix-solidity').CompilerInput
+const defaultVersion = 'soljson-v0.8.7+commit.e28d00a7.js'
 const path = require('path')
 
 compiler.loadRemoteVersion(defaultVersion, (error, solcSnapshot) => {
   console.log('solcSnapshot: ', solcSnapshot)
   if (error) console.log(error)
-  var compilationResult = {}
+  const compilationResult = {}
   const testsFolder = path.resolve(__dirname + '/../test-browser/tests/') + '/' // eslint-disable-line
 
   gatherCompilationResults(testsFolder, compilationResult, solcSnapshot)
@@ -17,13 +17,13 @@ compiler.loadRemoteVersion(defaultVersion, (error, solcSnapshot) => {
 })
 
 function gatherCompilationResults (dir, compilationResult, solcSnapshot) {
-  var filenames = fs.readdirSync(dir, 'utf8')
+  const filenames = fs.readdirSync(dir, 'utf8')
   filenames.map(function (item, i) {
     if (item.endsWith('.js')) {
-      var testDef = require(dir + item)
+      const testDef = require(dir + item)
       if ('@sources' in testDef) {
-        var sources = testDef['@sources']()
-        for (var files in sources) {
+        const sources = testDef['@sources']()
+        for (const files in sources) {
           compile(solcSnapshot, sources[files], true, function (result) {
             compilationResult[result.key] = result
           })
@@ -38,9 +38,9 @@ function gatherCompilationResults (dir, compilationResult, solcSnapshot) {
 }
 
 function compile (solcSnapshot, source, optimization, runs, addCompilationResult) {
-  var missingInputs = []
+  const missingInputs = []
   try {
-    var input = compilerInput(source, {optimize: optimization, runs: runs})
+    var input = compilerInput(source, { optimize: optimization, runs })
     var result = solcSnapshot.compileStandardWrapper(input, function (path) {
       missingInputs.push(path)
     })
@@ -54,12 +54,12 @@ function compile (solcSnapshot, source, optimization, runs, addCompilationResult
   if (result) {
     console.log(result.error, result.errors)
   }
-  var ret = {
+  const ret = {
     key: input,
-    source: source,
-    optimization: optimization,
-    missingInputs: missingInputs,
-    result: result
+    source,
+    optimization,
+    missingInputs,
+    result
   }
   addCompilationResult(ret)
 }
@@ -81,7 +81,6 @@ function replaceSolCompiler (results, solcSnapshot) {
       if (error) {
         console.log(error)
         process.exit(1)
-        return
       }
     })
   })

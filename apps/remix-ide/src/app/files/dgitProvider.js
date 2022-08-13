@@ -458,8 +458,8 @@ class DGitProvider extends Plugin {
   }
 
   calculateLocalStorage () {
-    var _lsTotal = 0
-    var _xLen; var _x
+    let _lsTotal = 0
+    let _xLen; let _x
     for (_x in localStorage) {
       // eslint-disable-next-line no-prototype-builtins
       if (!localStorage.hasOwnProperty(_x)) {

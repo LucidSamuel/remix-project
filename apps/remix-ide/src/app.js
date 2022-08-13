@@ -13,11 +13,9 @@ import { LandingPage } from './app/ui/landing-page/landing-page'
 import { MainPanel } from './app/components/main-panel'
 import { PermissionHandlerPlugin } from './app/plugins/permission-handler-plugin'
 import { AstWalker } from '@remix-project/remix-astwalker'
-import { LinkLibraries, DeployLibraries, OpenZeppelinProxy } from '@remix-project/core-plugin'
+import { LinkLibraries, DeployLibraries, OpenZeppelinProxy, OffsetToLineColumnConverter, CompilerMetadata, CompilerArtefacts, FetchAndCompile, CompilerImports, EditorContextListener, GistHandler } from '@remix-project/core-plugin'
 
 import { WalkthroughService } from './walkthroughService'
-
-import { OffsetToLineColumnConverter, CompilerMetadata, CompilerArtefacts, FetchAndCompile, CompilerImports, EditorContextListener, GistHandler } from '@remix-project/core-plugin'
 
 import Registry from './app/state/registry'
 import { ConfigPlugin } from './app/plugins/config'
@@ -33,12 +31,12 @@ import { Injected0ptimismProvider } from './app/tabs/injected-optimism-provider'
 import { InjectedArbitrumOneProvider } from './app/tabs/injected-arbitrum-one-provider'
 import { FileDecorator } from './app/plugins/file-decorator'
 
+import { QueryParams } from '@remix-project/remix-lib'
+import { SearchPlugin } from './app/tabs/search'
+
 const isElectron = require('is-electron')
 
 const remixLib = require('@remix-project/remix-lib')
-
-import { QueryParams } from '@remix-project/remix-lib'
-import { SearchPlugin } from './app/tabs/search'
 
 const Storage = remixLib.Storage
 const RemixDProvider = require('./app/files/remixDProvider')
@@ -106,9 +104,7 @@ class AppComponent {
     this.panels = {}
     this.workspace = pluginLoader.get()
     this.engine = new RemixEngine()
-    this.engine.register(appManager);
-
-
+    this.engine.register(appManager)
 
     const matomoDomains = {
       'remix-alpha.ethereum.org': 27,
@@ -160,7 +156,7 @@ class AppComponent {
     // ------- FILE DECORATOR PLUGIN ------------------
     const fileDecorator = new FileDecorator()
 
-    //----- search
+    // ----- search
     const search = new SearchPlugin()
 
     // ----------------- import content service ------------------------
@@ -218,7 +214,7 @@ class AppComponent {
 
     const configPlugin = new ConfigPlugin()
     this.layout = new Layout()
-    
+
     const permissionHandler = new PermissionHandlerPlugin()
 
     this.engine.register([
@@ -350,7 +346,7 @@ class AppComponent {
   async activate () {
     const queryParams = new QueryParams()
     const params = queryParams.get()
-    
+
     if (isElectron()) {
       this.appManager.activatePlugin('remixd')
     }
@@ -370,7 +366,7 @@ class AppComponent {
     await this.appManager.activatePlugin(['settings', 'config'])
     await this.appManager.activatePlugin(['hiddenPanel', 'pluginManager', 'fileDecorator', 'contextualListener', 'terminal', 'blockchain', 'fetchAndCompile', 'contentImport', 'gistHandler'])
     await this.appManager.activatePlugin(['settings'])
-    await this.appManager.activatePlugin(['walkthrough','storage', 'search','compileAndRun', 'recorder'])
+    await this.appManager.activatePlugin(['walkthrough', 'storage', 'search', 'compileAndRun', 'recorder'])
 
     this.appManager.on(
       'filePanel',
@@ -417,17 +413,17 @@ class AppComponent {
             }
 
             if (params.calls) {
-              const calls = params.calls.split("///");
+              const calls = params.calls.split('///')
 
               // call all functions in the list, one after the other
               for (const call of calls) {
-                const callDetails = call.split("//");
+                const callDetails = call.split('//')
                 if (callDetails.length > 1) {
                   this.appManager.call(
-                    "notification",
-                    "toast",
+                    'notification',
+                    'toast',
                     `initiating ${callDetails[0]} ...`
-                  );
+                  )
 
                   // @todo(remove the timeout when activatePlugin is on 0.3.0)
                   try {

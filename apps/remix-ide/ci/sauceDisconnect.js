@@ -2,9 +2,9 @@
 
 const https = require('https')
 
-var userName = process.argv[2]
-var accessKey = process.argv[3]
-var tunnelName = process.argv[4]
+const userName = process.argv[2]
+const accessKey = process.argv[3]
+const tunnelName = process.argv[4]
 
 function removeTunnel () {
   const requestPath = `/rest/v1/${userName}/tunnels`
@@ -13,7 +13,7 @@ function removeTunnel () {
     if (error) {
       console.log(error)
     } else {
-      var data = JSON.parse(result)
+      const data = JSON.parse(result)
       for (var k in data) {
         retrieveTunnel(data[k], function (error, result) {
           if (error) {
@@ -35,7 +35,7 @@ function retrieveTunnel (tunnelid, callback) {
     if (error) {
       callback(error)
     } else {
-      callback(null, {'identtifier': JSON.parse(result).tunnel_identifier, 'id': tunnelid})
+      callback(null, { identtifier: JSON.parse(result).tunnel_identifier, id: tunnelid })
     }
   })
 }
@@ -56,7 +56,7 @@ function callSauce (requestPath, type, callback) {
     res.on('end', function onEnd () {})
   }
 
-  var req = https.request({
+  const req = https.request({
     hostname: 'saucelabs.com',
     path: requestPath,
     method: type,

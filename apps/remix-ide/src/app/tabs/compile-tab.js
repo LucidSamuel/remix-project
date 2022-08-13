@@ -74,7 +74,7 @@ class CompileTab extends CompilerApiMixin(ViewPlugin) { // implements ICompilerA
   }
 
   render () {
-    return <div id='compileTabView'><SolidityCompiler api={this}/></div>
+    return <div id='compileTabView'><SolidityCompiler api={this} /></div>
   }
 
   async compileWithParameters (compilationTargets, settings) {
@@ -99,7 +99,7 @@ class CompileTab extends CompilerApiMixin(ViewPlugin) { // implements ICompilerA
     this.renderComponent()
     // @todo(#2875) should use loading compiler return value to check whether the compiler is loaded instead of "setInterval"
     const value = JSON.stringify(settings, null, '\t')
-  
+
     this.call('notification', 'toast', compilerConfigChangedToastMsg(this.currentRequest.from, value))
   }
 

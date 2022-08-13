@@ -1,6 +1,6 @@
-var csjs = require('csjs-inject')
+const csjs = require('csjs-inject')
 
-var css = csjs`
+const css = csjs`
   .tooltip {
     z-index: 1001;
     display: flex;

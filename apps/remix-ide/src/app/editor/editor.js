@@ -72,19 +72,20 @@ class Editor extends Plugin {
     this.dispatch = dispatch
   }
 
-  updateComponent(state) {
-    return <EditorUI
-    editorAPI={state.api}
-    themeType={state.currentThemeType}
-    currentFile={state.currentFile}
-    events={state.events}
-    plugin={state.plugin}
-  />
+  updateComponent (state) {
+    return (
+      <EditorUI
+        editorAPI={state.api}
+        themeType={state.currentThemeType}
+        currentFile={state.currentFile}
+        events={state.events}
+        plugin={state.plugin}
+      />
+    )
   }
 
   render () {
-    
-/*     if (this.el) return this.el
+    /*     if (this.el) return this.el
 
     this.el = document.createElement('div')
     this.el.setAttribute('id', 'editorView')
@@ -98,23 +99,27 @@ class Editor extends Plugin {
     this.el.gotoLine = (line, column) => this.gotoLine(line, column || 0)
     this.el.getCursorPosition = () => this.getCursorPosition() */
 
-    return <div ref={(element)=>{ 
-      this.ref = element
-      this.ref.currentContent = () => this.currentContent() // used by e2e test
-      this.ref.setCurrentContent = (value) => {
-        if (this.sessions[this.currentFile]) {
-          this.sessions[this.currentFile].setValue(value)
-          this._onChange(this.currentFile)
-        }
-      }
-      this.ref.gotoLine = (line, column) => this.gotoLine(line, column || 0)
-      this.ref.getCursorPosition = () => this.getCursorPosition()
-      this.ref.addDecoration = (marker, filePath, typeOfDecoration) => this.addDecoration(marker, filePath, typeOfDecoration)
-      this.ref.clearDecorationsByPlugin = (filePath, plugin, typeOfDecoration) => this.clearDecorationsByPlugin(filePath, plugin, typeOfDecoration)      
-      this.ref.keepDecorationsFor = (name, typeOfDecoration) => this.keepDecorationsFor(name, typeOfDecoration)
-    }} id='editorView'>
-      <PluginViewWrapper plugin={this} />
+    return (
+      <div
+        ref={(element) => {
+          this.ref = element
+          this.ref.currentContent = () => this.currentContent() // used by e2e test
+          this.ref.setCurrentContent = (value) => {
+            if (this.sessions[this.currentFile]) {
+              this.sessions[this.currentFile].setValue(value)
+              this._onChange(this.currentFile)
+            }
+          }
+          this.ref.gotoLine = (line, column) => this.gotoLine(line, column || 0)
+          this.ref.getCursorPosition = () => this.getCursorPosition()
+          this.ref.addDecoration = (marker, filePath, typeOfDecoration) => this.addDecoration(marker, filePath, typeOfDecoration)
+          this.ref.clearDecorationsByPlugin = (filePath, plugin, typeOfDecoration) => this.clearDecorationsByPlugin(filePath, plugin, typeOfDecoration)
+          this.ref.keepDecorationsFor = (name, typeOfDecoration) => this.keepDecorationsFor(name, typeOfDecoration)
+        }} id='editorView'
+      >
+        <PluginViewWrapper plugin={this} />
       </div>
+    )
   }
 
   renderComponent () {
@@ -531,7 +536,7 @@ class Editor extends Plugin {
     decoration.from = from
 
     const { currentDecorations, registeredDecorations } = this.api.addDecoration(decoration, path, typeOfDecoration)
-    if (!this.registeredDecorations[typeOfDecoration][filePath]) this.registeredDecorations[typeOfDecoration][filePath] = []    
+    if (!this.registeredDecorations[typeOfDecoration][filePath]) this.registeredDecorations[typeOfDecoration][filePath] = []
     this.registeredDecorations[typeOfDecoration][filePath].push(...registeredDecorations)
     if (!this.currentDecorations[typeOfDecoration][filePath]) this.currentDecorations[typeOfDecoration][filePath] = []
     this.currentDecorations[typeOfDecoration][filePath].push(...currentDecorations)
@@ -573,7 +578,7 @@ class Editor extends Plugin {
     await this.addDecoration(lineText, filePath, 'lineTextPerFile')
   }
 
-  discardLineTexts() {
+  discardLineTexts () {
     const { from } = this.currentRequest
     for (const session in this.sessions) {
       this.clearDecorationsByPlugin(session, from, 'lineTextPerFile', this.registeredDecorations, this.currentDecorations)

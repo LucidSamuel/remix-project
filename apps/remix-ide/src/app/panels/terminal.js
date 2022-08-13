@@ -10,7 +10,6 @@ const EventManager = require('../../lib/events')
 
 import { CompilerImports } from '@remix-project/core-plugin' // eslint-disable-line
 
-
 const KONSOLES = []
 
 function register (api) { KONSOLES.push(api) }
@@ -81,11 +80,9 @@ class Terminal extends Plugin {
       this.call('debugger', 'debug', hash)
     })
     this.dispatch = null
-    
   }
-  
 
-  onActivation() {
+  onActivation () {
     this.renderComponent()
   }
 
@@ -104,26 +101,28 @@ class Terminal extends Plugin {
     this.terminalApi.log(message, type)
   }
 
-  setDispatch(dispatch) {
+  setDispatch (dispatch) {
     this.dispatch = dispatch
   }
 
   render () {
-    return <div id='terminal-view' className='panel' data-id='terminalContainer-view'><PluginViewWrapper plugin={this}/></div>
+    return <div id='terminal-view' className='panel' data-id='terminalContainer-view'><PluginViewWrapper plugin={this} /></div>
   }
 
-  updateComponent(state) {
-    return <RemixUiTerminal
-    plugin={state.plugin}
-    onReady={state.onReady}
-  />
+  updateComponent (state) {
+    return (
+      <RemixUiTerminal
+        plugin={state.plugin}
+        onReady={state.onReady}
+      />
+    )
   }
 
   renderComponent () {
     const onReady = (api) => { this.terminalApi = api }
     this.dispatch({
       plugin: this,
-      onReady: onReady
+      onReady
     })
   }
 

@@ -11,7 +11,7 @@ export const profile = {
 }
 
 export class Web3ProviderModule extends Plugin {
-  constructor(blockchain) {
+  constructor (blockchain) {
     super(profile)
     this.blockchain = blockchain
   }
@@ -20,8 +20,7 @@ export class Web3ProviderModule extends Plugin {
     that is used by plugins to call the current ethereum provider.
     Should be taken carefully and probably not be release as it is now.
   */
-  sendAsync(payload) {
-
+  sendAsync (payload) {
     return new Promise((resolve, reject) => {
       this.askUserPermission('sendAsync', `Calling ${payload.method} with parameters ${JSON.stringify(payload.params, null, '\t')}`).then(
         async (result) => {
@@ -52,12 +51,12 @@ export class Web3ProviderModule extends Plugin {
             reject(new Error('User denied permission'))
           }
         }).catch((e) => {
-          reject(e)
-        })
+        reject(e)
+      })
     })
   }
 
-  async tryTillReceiptAvailable(txhash) {
+  async tryTillReceiptAvailable (txhash) {
     try {
       const receipt = await this.call('blockchain', 'getTransactionReceipt', txhash)
       if (receipt) return receipt
@@ -68,7 +67,7 @@ export class Web3ProviderModule extends Plugin {
     return await this.tryTillReceiptAvailable(txhash)
   }
 
-  async pause() {
+  async pause () {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, 500)
     })
